@@ -1,20 +1,19 @@
 #:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/manifest.v2.schema.json
 
 packaging_format = 2
-id = "papra"
-name = "Papra Docs"
-description.en = "The minimalistic document archiving platform."
-description.fr = "The minimalistic document archiving platform." 
-version = "26.2.0~ynh1"
+id = "owlrelay"
+name = "OwlRelay"
+description.en = "Email to Webhook service."
+description.fr = "Email to Webhook service." 
+version = "0.0.3~ynh1"
 
 maintainers = ["otm33GH"]
 
 [upstream]
 license = "GPL-3.0-only" # you can see the available licenses identifiers list here: https://spdx.org/licenses/
-website = "https://papra.app/fr/"
-demo = "https://demo.papra.app/"
+website = "https://owlrelay.email/"
 admindoc = "https://docs.papra.app/"
-code = "https://github.com/papra-hq/papra"
+code = "https://github.com/papra-hq/owlrelay"
 
 
 [integration]
@@ -22,11 +21,11 @@ yunohost = ">= 12.1.39"
 helpers_version = "2.1"
 # FIXME: can be replaced by a list of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386"]
 architectures = "all"
-multi_instance = true
+multi_instance = false
 
 
-ldap = "false"
-sso = "false"
+ldap = false
+sso = false
 
 # FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G...
 disk = "50M"
@@ -41,32 +40,12 @@ ram.runtime = "50M"
     type = "group"
     default = "visitors"
 
-    [install.language]
-    ask.en = "Choose the OCR language"
-    ask.fr = "Choisissez la langue pour l'OCR"
-    type = "select"
-    choices = ["fra", "cat", "dan", "deu", "eng", "eus", "fin", "glg", "ita", "nld", "nor", "pol", "port", "ron", "rus", "spa", "slv", "tur", "ukr"]
-    default = "fra"
-
-    [install.email_verification]
-    type = "boolean"
-    ask.en = "Allow email verification ?"
-    ask.fr = "Activer la confirmation de l'email ?"
-    default = true
-
-    [install.doc_storage_driver]
-    ask.en = "Storage driver"
-    ask.fr = "Storage driver"
-    type = "select"
-    choices = ["filesystem", "s3", "in-memory", "azure-blob"]
-    default = "filesystem"
-
 [resources]
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/papra-hq/papra/archive/refs/tags/@papra/app@26.2.1.tar.gz"
-    sha256 = "587cbb0057187922f90c6854e62dc9c04fcdf10e8f92bb9dd20aca0692d0fd83"
+    url = "https://github.com/papra-hq/owlrelay/archive/refs/tags/v0.0.3.tar.gz"
+    sha256 = "1e8e5c7c57098713e5a6550a3242d18341166dabc9dad62eae44f374bf9d64db"
     # autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
