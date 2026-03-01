@@ -59,8 +59,7 @@ ram.runtime = "50M"
 
     main.url = "/"
 
-    [resources.ports.client]
-    [resources.ports.server]
+    [resources.ports]
     
     [resources.database]
     type = "postgresql"
