@@ -61,8 +61,11 @@ ram.runtime = "50M"
 
     [resources.ports.client]
     [resources.ports.server]
-
+    
+    [resources.database]
+    type = "postgresql"
+    
     [resources.apt]
     [resources.nodejs]
     version = "24"
-    
+  
