@@ -11,21 +11,8 @@ source /usr/share/yunohost/helpers
 # INITIALIZE AND STORE SETTINGS
 #=================================================
 
-max_upload_size=50
-auth_secret=$(ynh_string_random --length=32)
-ynh_app_setting_set --key=auth_secret --value="$auth_secret"
-
+max_upload_size=500
 ynh_app_setting_set --key=max_upload_size --value=$max_upload_size
-max_up=$((max_upload_size * 1024 * 1024))
-
-email_smtp_host=$(cat /etc/yunohost/current_host)
-email_smtp_user="$app"
-email_smtp_password="$mail_pwd"
-email_smtp_port=587
-pwd_reset=true
-registration=true
-retention=30
-doc_storage_driver=$doc_storage_driver
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -48,23 +35,29 @@ ynh_setup_source --dest_dir="$install_dir"
 #=================================================
 ynh_script_progression "Adding $app's configuration..."
 
-ynh_config_add --template=".env" --destination="$install_dir/.env"
-ynh_config_add --template="papra.config.yaml" --destination="$install_dir/apps/papra-server/papra.config.yaml"
+ynh_config_add --template="server.env" --destination="$install_dir/.env"
 
 #=================================================
-# INSTALLATION
+# SERVER INSTALLATION
 #=================================================
 
-pushd "$install_dir"
+pushd "$install_dir/apps/server"
 ynh_exec_as_app pnpm install 
 ynh_exec_as_app pnpm -r build
-ynh_exec_as_app mkdir -p apps/papra-server/public
-ynh_exec_as_app cp -r apps/papra-client/dist/* apps/papra-server/public/
 pnpm store prune
 popd
 chown -R $app:$app $install_dir
 
+#=================================================
+# CLIENT INSTALLATION
+#=================================================
 
+pushd "$install_dir/apps/client"
+ynh_exec_as_app pnpm install 
+ynh_exec_as_app pnpm -r build
+pnpm store prune
+popd
+chown -R $app:$app $install_dir
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -72,9 +65,13 @@ chown -R $app:$app $install_dir
 
 ynh_config_add_nginx
 
-ynh_config_add_systemd --service="$app" 
+ynh_config_add_systemd --service="$app-server" --template="owlrelay-server.service"
+ynh_config_add_systemd --service="$app-client" --template="owlrelay-client.service"
 
-yunohost service add "$app" --description="Papra Docs" --log="/var/log/$app/$app.log"
+
+yunohost service add "$app-server" --description="OwlRelay Server" --log="/var/log/$app/$app-server.log"
+yunohost service add "$app-client" --description="OwlRelay Client" --log="/var/log/$app/$app-client.log"
+
 
 ynh_config_add_logrotate
 
