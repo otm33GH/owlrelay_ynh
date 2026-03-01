@@ -18,6 +18,7 @@ npm install --global corepack@latest
 corepack enable pnpm
 corepack use pnpm@latest
 chown -R "$app:$app" "$install_dir"
+ynh_psql_db_shell < ./db.sql
 
 #=================================================
 # RESTORE SYSTEM CONFIGURATION
