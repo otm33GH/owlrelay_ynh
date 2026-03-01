@@ -65,7 +65,7 @@ chown -R $app:$app $install_dir
 
 ynh_config_add_nginx
 
-ynh_config_add_systemd --service="$app-server" --template="owlrelay-server.service"
+ynh_config_add_systemd --service="$app-server" --template="owlrelay.service"
 
 
 yunohost service add "$app-server" --description="OwlRelay Server" --log="/var/log/$app/$app-server.log"
