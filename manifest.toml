@@ -60,9 +60,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.ports]
-    
-    [resources.database]
-    type = "postgresql"
+
     
     [resources.apt]
     [resources.nodejs]
