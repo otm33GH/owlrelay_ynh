@@ -1,5 +1,5 @@
---- apps/server/package_orig.json       2026-03-03 15:38:31.908850534 +0000
-+++ apps/server/package_mod.json        2026-03-03 15:40:57.555403163 +0000
+--- apps/server/package.json       2026-03-03 15:38:31.908850534 +0000
++++ apps/server/package.json        2026-03-03 15:40:57.555403163 +0000
 @@ -10,7 +10,7 @@
    "scripts": {
      "dev": "wrangler dev --test-scheduled --port 1222 | crowlog-pretty",
