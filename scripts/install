@@ -59,7 +59,7 @@ ynh_exec_as_app pnpm -r build
 pnpm store prune
 popd
 chown -R $app:$app $install_dir
-chown owlrelay:www-data $install_dir/apps/client
+chown -R $app:www-data $install_dir/apps/client/
 
 #=================================================
 # SYSTEM CONFIGURATION
